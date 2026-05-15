@@ -350,13 +350,27 @@ Puntos de quiebre definidos en `main.css`:
 
 ## Configuración de la API
 
-La URL base del backend está definida en `assets/js/api/client.js`:
+La URL base del backend se gestiona en `assets/js/config.js`, que define dos entornos:
 
 ```js
-const API_BASE_URL = 'http://localhost:3000/api/v1';
+const ENV = {
+  development: {
+    API_BASE_URL: 'http://localhost:3000/api/v1',
+  },
+  production: {
+    API_BASE_URL: 'https://pruebajr-production.up.railway.app/api/v1',
+  },
+};
+
+const CONFIG = ENV['production']; // ← cambia esto para cambiar de entorno
 ```
 
-Para apuntar a otro entorno (staging, producción), cambia únicamente esta línea.
+Para alternar entre entornos solo hay que modificar la última línea:
+
+```js
+const CONFIG = ENV['development']; // local
+const CONFIG = ENV['production'];  // producción
+```
 
 El objeto `client` expone cuatro métodos que centralizan todo el manejo de errores HTTP:
 

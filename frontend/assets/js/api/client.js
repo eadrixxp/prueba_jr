@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://localhost:3000/api/v1';
+const API_BASE_URL = CONFIG.API_BASE_URL;
 
 const client = {
   _buildUrl(endpoint) {
