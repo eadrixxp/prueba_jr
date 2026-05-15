@@ -63,6 +63,10 @@ Abre `frontend/index.html` directamente en el navegador. Si el backend tiene COR
 Evita cualquier restricción de `file://` y simula un entorno real:
 
 ```bash
+# Navegar a la carpeta
+
+cd frontend
+
 # Con Node.js (sin instalar nada extra)
 npx serve .
 
