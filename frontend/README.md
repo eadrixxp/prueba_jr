@@ -64,7 +64,7 @@ Evita cualquier restricción de `file://` y simula un entorno real:
 
 ```bash
 # Con Node.js (sin instalar nada extra)
-npx serve frontend
+npx serve .
 
 # Con Python
 python -m http.server 8080 --directory frontend

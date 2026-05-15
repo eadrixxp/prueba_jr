@@ -1,5 +1,5 @@
 const FormacionModule = (() => {
-  let formacionGenerada = null;
+  let asignacionesPendientes = null;
 
   async function _loadEquipos() {
     try {
@@ -28,7 +28,9 @@ const FormacionModule = (() => {
     if (!equipos.length) {
       container.innerHTML = `
         <div class="empty-state">
-          <div class="empty-state__icon">🌍</div>
+          <div class="empty-state__icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          </div>
           <div class="empty-state__text">No hay equipos registrados</div>
         </div>
       `;
@@ -57,7 +59,9 @@ const FormacionModule = (() => {
     if (!grupos.length) {
       container.innerHTML = `
         <div class="empty-state">
-          <div class="empty-state__icon">🏷️</div>
+          <div class="empty-state__icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+          </div>
           <div class="empty-state__text">No hay grupos registrados</div>
         </div>
       `;
@@ -88,9 +92,9 @@ const FormacionModule = (() => {
   }
 
   async function _handleGenerar() {
-    const input  = document.getElementById('field-cantidadGrupos');
+    const input   = document.getElementById('field-cantidadGrupos');
     const errorEl = document.getElementById('error-cantidadGrupos');
-    const cantidad = parseInt(input.value, 10);
+    const cantidad = Number.parseInt(input.value, 10);
 
     if (!cantidad || cantidad < 2) {
       input.classList.add('error');
@@ -103,13 +107,32 @@ const FormacionModule = (() => {
 
     Spinner.show();
     try {
-      const res = await client.post('/formacion/generar', { cantidadGrupos: cantidad });
-      formacionGenerada = res.data;
-      _renderPreview(formacionGenerada);
+      const res = await client.post('/formacion/preview', { cantidadGrupos: cantidad });
+      asignacionesPendientes = res.data.asignaciones;
+      _renderPreview(res.data.formacion);
       _showSaveBar(cantidad);
-      Toast.success('Formación generada. Revisa la vista previa y guarda si estás conforme.');
+      Toast.show('Vista previa generada. Revisa la distribución y guarda cuando estés conforme.', 'warning');
     } catch (err) {
-      Toast.error(err.message || 'Error al generar la formación');
+      Toast.error(err.message || 'Error al generar la vista previa');
+    } finally {
+      Spinner.hide();
+    }
+  }
+
+  async function _handleGuardar() {
+    if (!asignacionesPendientes) {
+      Toast.error('Genera una vista previa antes de guardar');
+      return;
+    }
+
+    Spinner.show();
+    try {
+      await client.post('/formacion/guardar', { asignaciones: asignacionesPendientes });
+      asignacionesPendientes = null;
+      Toast.success('Formación guardada correctamente');
+      _hideSaveBar();
+    } catch (err) {
+      Toast.error(err.message || 'Error al guardar la formación');
     } finally {
       Spinner.hide();
     }
@@ -119,7 +142,7 @@ const FormacionModule = (() => {
     const container = document.getElementById('preview-container');
     const section   = document.getElementById('preview-section');
 
-    if (!formacion || !formacion.length) {
+    if (!formacion?.length) {
       container.innerHTML = '<div class="empty-state__text">No hay datos para mostrar</div>';
       return;
     }
@@ -135,7 +158,10 @@ const FormacionModule = (() => {
 
       return `
         <div class="preview-card fade-up" style="animation-delay:${i * 60}ms">
-          <div class="preview-card__header">🏆 ${grupo.grupo}</div>
+          <div class="preview-card__header">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
+            ${grupo.grupo}
+          </div>
           <div class="preview-card__list">${equipos}</div>
         </div>
       `;
@@ -150,8 +176,21 @@ const FormacionModule = (() => {
     const bar = document.getElementById('save-bar');
     if (!bar) return;
     const info = bar.querySelector('.save-bar__info');
-    if (info) info.innerHTML = `Formación generada con <strong>${cantidad} grupos</strong>. La distribución ya fue guardada automáticamente al generarla.`;
+    if (info) {
+      info.innerHTML = `Vista previa con <strong>${cantidad} grupos</strong>. La distribución <strong>aún no está guardada</strong>.`;
+    }
     bar.style.display = 'flex';
+    const btnGuardar = document.getElementById('btn-guardar-formacion');
+    if (btnGuardar) btnGuardar.disabled = false;
+  }
+
+  function _hideSaveBar() {
+    const bar = document.getElementById('save-bar');
+    if (!bar) return;
+    const info = bar.querySelector('.save-bar__info');
+    if (info) info.innerHTML = 'Formación guardada correctamente.';
+    const btnGuardar = document.getElementById('btn-guardar-formacion');
+    if (btnGuardar) btnGuardar.disabled = true;
   }
 
   async function _handleVerActual() {
@@ -162,9 +201,10 @@ const FormacionModule = (() => {
         Toast.warning('No hay ninguna formación guardada todavía');
         return;
       }
-      formacionGenerada = res.data;
-      _renderPreview(formacionGenerada);
+      _renderPreview(res.data);
       document.getElementById('preview-section').scrollIntoView({ behavior: 'smooth' });
+      const bar  = document.getElementById('save-bar');
+      if (bar) bar.style.display = 'none';
     } catch (err) {
       Toast.error(err.message || 'Error al cargar la formación actual');
     } finally {
@@ -179,6 +219,7 @@ const FormacionModule = (() => {
 
     document.getElementById('btn-generar')?.addEventListener('click', _handleGenerar);
     document.getElementById('btn-ver-actual')?.addEventListener('click', _handleVerActual);
+    document.getElementById('btn-guardar-formacion')?.addEventListener('click', _handleGuardar);
 
     const input = document.getElementById('field-cantidadGrupos');
     input?.addEventListener('input', () => {

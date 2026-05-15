@@ -67,24 +67,34 @@
   border: none;
   cursor: pointer;
   color: var(--color-danger);
-  padding: 5px 8px;
+  padding: 6px;
   border-radius: var(--radius-sm);
-  font-size: 16px;
-  transition: background var(--transition);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--transition), color var(--transition);
 }
-.btn-icon-danger:hover { background: var(--color-danger-light); }
+.btn-icon-danger:hover { background: var(--color-danger-light); color: #b91c1c; }
 
 .btn-icon-edit {
   background: transparent;
   border: none;
   cursor: pointer;
   color: var(--color-primary);
-  padding: 5px 8px;
+  padding: 6px;
   border-radius: var(--radius-sm);
-  font-size: 16px;
-  transition: background var(--transition);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--transition), color var(--transition);
 }
-.btn-icon-edit:hover { background: var(--color-primary-light); }
+.btn-icon-edit:hover { background: var(--color-primary-light); color: var(--color-primary-dark); }
+
+/* Evita que los SVG dentro de botones de acción capturen el click */
+.btn-icon-edit svg,
+.btn-icon-danger svg {
+  pointer-events: none;
+}
 
 .table-wrapper {
   overflow-x: auto;
@@ -339,8 +349,15 @@ tbody td {
 .modal-overlay.open .confirm-dialog { transform: translateY(0) scale(1); }
 
 .confirm-dialog__icon {
-  font-size: 36px;
-  margin-bottom: 12px;
+  width: 56px;
+  height: 56px;
+  background: var(--color-danger-light);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+  color: var(--color-danger);
 }
 
 .confirm-dialog__title {

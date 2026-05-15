@@ -16,8 +16,12 @@ const EquiposModule = (() => {
       label: 'Acciones',
       render: row => `
         <div class="td-actions">
-          <button class="btn-icon-edit" onclick="EquiposModule.openEdit(${row.id})" title="Editar">✏️</button>
-          <button class="btn-icon-danger" onclick="EquiposModule.remove(${row.id}, '${row.nombre_pais}')" title="Eliminar">🗑️</button>
+          <button class="btn-icon-edit" onclick="EquiposModule.openEdit(${row.id})" title="Editar">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          </button>
+          <button class="btn-icon-danger" onclick="EquiposModule.remove(${row.id}, '${row.nombre_pais}')" title="Eliminar">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
+          </button>
         </div>
       `,
     },
@@ -54,7 +58,7 @@ const EquiposModule = (() => {
   function openCreate() {
     editingId = null;
     _resetForm();
-    document.getElementById('modal-title').textContent = '➕ Nuevo Equipo';
+    document.getElementById('modal-title').textContent = 'Nuevo Equipo';
     Modal.open('equipo-modal');
   }
 
@@ -63,7 +67,7 @@ const EquiposModule = (() => {
     if (!equipo) return;
     editingId = id;
 
-    document.getElementById('modal-title').textContent = '✏️ Editar Equipo';
+    document.getElementById('modal-title').textContent = 'Editar Equipo';
     document.getElementById('field-nombrePais').value        = equipo.nombre_pais;
     document.getElementById('field-codigoFifa').value        = equipo.codigo_fifa;
     document.getElementById('field-directorTecnico').value   = equipo.director_tecnico;
@@ -102,8 +106,8 @@ const EquiposModule = (() => {
       nombrePais:        document.getElementById('field-nombrePais').value.trim(),
       codigoFifa:        document.getElementById('field-codigoFifa').value.trim().toUpperCase(),
       directorTecnico:   document.getElementById('field-directorTecnico').value.trim(),
-      rankingFifa:       parseInt(document.getElementById('field-rankingFifa').value, 10),
-      cantidadJugadores: parseInt(document.getElementById('field-cantidadJugadores').value, 10),
+      rankingFifa:       Number.parseInt(document.getElementById('field-rankingFifa').value, 10),
+      cantidadJugadores: Number.parseInt(document.getElementById('field-cantidadJugadores').value, 10),
     };
 
     Spinner.show();
@@ -135,20 +139,20 @@ const EquiposModule = (() => {
       { id: 'field-nombrePais',        errorId: 'error-nombrePais',        check: v => v.trim() !== '', msg: 'El nombre del país es requerido' },
       { id: 'field-codigoFifa',        errorId: 'error-codigoFifa',        check: v => /^[A-Za-z]{3}$/.test(v.trim()), msg: 'Debe tener exactamente 3 letras' },
       { id: 'field-directorTecnico',   errorId: 'error-directorTecnico',   check: v => v.trim() !== '', msg: 'El director técnico es requerido' },
-      { id: 'field-rankingFifa',       errorId: 'error-rankingFifa',       check: v => parseInt(v) > 0, msg: 'Debe ser un número mayor a 0' },
-      { id: 'field-cantidadJugadores', errorId: 'error-cantidadJugadores', check: v => parseInt(v) >= 23 && parseInt(v) <= 26, msg: 'Debe estar entre 23 y 26' },
+      { id: 'field-rankingFifa',       errorId: 'error-rankingFifa',       check: v => Number.parseInt(v, 10) > 0, msg: 'Debe ser un número mayor a 0' },
+      { id: 'field-cantidadJugadores', errorId: 'error-cantidadJugadores', check: v => Number.parseInt(v, 10) >= 23 && Number.parseInt(v, 10) <= 26, msg: 'Debe estar entre 23 y 26' },
     ];
 
     fields.forEach(({ id, errorId, check, msg }) => {
       const input = document.getElementById(id);
       const error = document.getElementById(errorId);
-      if (!check(input.value)) {
+      if (check(input.value)) {
+        input.classList.remove('error');
+        if (error) error.classList.remove('visible');
+      } else {
         input.classList.add('error');
         if (error) { error.textContent = msg; error.classList.add('visible'); }
         valid = false;
-      } else {
-        input.classList.remove('error');
-        if (error) error.classList.remove('visible');
       }
     });
 

@@ -69,7 +69,6 @@ cp .env
 
 # 5. Instalar dependencias y librerias necesarias
 npm install express pg dotenv express-validator swagger-ui-express swagger-jsdoc cors helmet morgan
-
 npm install --save-dev nodemon
 
 # 6. Ejecutar el script SQL en PostgreSQL para crear tablas, triggers e índices
@@ -90,9 +89,8 @@ El servidor estará disponible en `http://localhost:3000`
 
 Crea un archivo `.env` en la raíz del proyecto basándote en `.env.example`:
 
-```env
+```env.example
 PORT=3000
-NODE_ENV=development
 
 DB_HOST=localhost
 DB_PORT=5432
@@ -165,8 +163,7 @@ Tabla de relación entre grupos y equipos (asignación aleatoria).
 
 ## Estructura del proyecto
 
-```
-mundial-api/
+backend/
 ├── src/
 │   ├── config/
 │   │   ├── db.js                   # Pool de conexiones PostgreSQL

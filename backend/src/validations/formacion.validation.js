@@ -6,4 +6,13 @@ const generarFormacionRules = [
     .isInt({ min: 2 }).withMessage('Debe solicitar al menos 2 grupos'),
 ];
 
-module.exports = { generarFormacionRules };
+const guardarFormacionRules = [
+  body('asignaciones')
+    .isArray({ min: 1 }).withMessage('Se requiere al menos una asignación'),
+  body('asignaciones.*.grupoId')
+    .isInt({ min: 1 }).withMessage('Cada asignación debe tener un grupoId válido'),
+  body('asignaciones.*.equipoId')
+    .isInt({ min: 1 }).withMessage('Cada asignación debe tener un equipoId válido'),
+];
+
+module.exports = { generarFormacionRules, guardarFormacionRules };
