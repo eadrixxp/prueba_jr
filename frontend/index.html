@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mundial API</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/animations.css">
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav__brand">
+      <span class="nav__brand-icon"></span>
+      Mundial API
+    </div>
+    <div class="nav__links">
+      <a href="index.html" class="nav__link active">
+        <span class="nav__link-icon"></span>
+        <span>Inicio</span>
+      </a>
+      <a href="pages/equipos.html" class="nav__link">
+        <span class="nav__link-icon"></span>
+        <span>Equipos</span>
+      </a>
+      <a href="pages/grupos.html" class="nav__link">
+        <span class="nav__link-icon"></span>
+        <span>Grupos</span>
+      </a>
+      <a href="pages/formacion.html" class="nav__link">
+        <span class="nav__link-icon"></span>
+        <span>Formación</span>
+      </a>
+    </div>
+  </nav>
+
+  <main class="layout">
+    <div class="page-enter">
+
+      <div class="page-header">
+        <div>
+          <div class="page-header__title"> Mundial API</div>
+          <div class="page-header__subtitle">Administración de equipos y grupos del Mundial de Fútbol</div>
+        </div>
+      </div>
+
+      <div class="grid-3" style="margin-bottom:32px">
+        <a href="pages/equipos.html" style="text-decoration:none">
+          <div class="stat-card" style="cursor:pointer;transition:box-shadow 200ms,transform 200ms" onmouseover="this.style.boxShadow='var(--shadow-md)';this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='var(--shadow-sm)';this.style.transform='none'">
+            <div class="stat-card__icon stat-card__icon--blue"></div>
+            <div>
+              <div class="stat-card__value">—</div>
+              <div class="stat-card__label">Equipos registrados</div>
+            </div>
+          </div>
+        </a>
+        <a href="pages/grupos.html" style="text-decoration:none">
+          <div class="stat-card" style="cursor:pointer;transition:box-shadow 200ms,transform 200ms" onmouseover="this.style.boxShadow='var(--shadow-md)';this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='var(--shadow-sm)';this.style.transform='none'">
+            <div class="stat-card__icon stat-card__icon--green"></div>
+            <div>
+              <div class="stat-card__value">—</div>
+              <div class="stat-card__label">Grupos configurados</div>
+            </div>
+          </div>
+        </a>
+        <a href="pages/formacion.html" style="text-decoration:none">
+          <div class="stat-card" style="cursor:pointer;transition:box-shadow 200ms,transform 200ms" onmouseover="this.style.boxShadow='var(--shadow-md)';this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='var(--shadow-sm)';this.style.transform='none'">
+            <div class="stat-card__icon stat-card__icon--amber"></div>
+            <div>
+              <div class="stat-card__value">—</div>
+              <div class="stat-card__label">Formación activa</div>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <div class="card__header">
+            <div class="card__title"> Acceso rápido</div>
+          </div>
+          <div class="card__body" style="display:flex;flex-direction:column;gap:10px">
+            <a href="pages/equipos.html" class="btn btn--outline" style="justify-content:flex-start">Administrar Equipos</a>
+            <a href="pages/grupos.html" class="btn btn--outline" style="justify-content:flex-start"> Administrar Grupos</a>
+            <a href="pages/formacion.html" class="btn btn--primary" style="justify-content:flex-start"> Generar Formación</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card__header">
+            <div class="card__title"> Flujo de trabajo</div>
+          </div>
+          <div class="card__body">
+            <div style="display:flex;flex-direction:column;gap:14px">
+              <div style="display:flex;gap:14px;align-items:flex-start">
+                <div style="width:28px;height:28px;border-radius:50%;background:var(--color-primary-light);color:var(--color-primary);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0">1</div>
+                <div>
+                  <div style="font-weight:600;font-size:14px">Registra los equipos</div>
+                  <div style="font-size:13px;color:var(--color-text-muted)">Agrega los países participantes con su información FIFA</div>
+                </div>
+              </div>
+              <div style="display:flex;gap:14px;align-items:flex-start">
+                <div style="width:28px;height:28px;border-radius:50%;background:var(--color-success-light);color:var(--color-success);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0">2</div>
+                <div>
+                  <div style="font-weight:600;font-size:14px">Crea los grupos</div>
+                  <div style="font-size:13px;color:var(--color-text-muted)">Define los grupos del torneo (Grupo A, Grupo B…)</div>
+                </div>
+              </div>
+              <div style="display:flex;gap:14px;align-items:flex-start">
+                <div style="width:28px;height:28px;border-radius:50%;background:var(--color-warning-light);color:var(--color-warning);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0">3</div>
+                <div>
+                  <div style="font-weight:600;font-size:14px">Genera la formación</div>
+                  <div style="font-size:13px;color:var(--color-text-muted)">Indica cuántos grupos deseas y genera la distribución aleatoria</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script src="assets/js/api/client.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const stats = document.querySelectorAll('.stat-card__value');
+      try {
+        const [equiposRes, gruposRes, formacionRes] = await Promise.all([
+          client.get('/equipos'),
+          client.get('/grupos'),
+          client.get('/formacion'),
+        ]);
+        stats[0].textContent = equiposRes.total ?? equiposRes.data.length;
+        stats[1].textContent = gruposRes.total  ?? gruposRes.data.length;
+        stats[2].textContent = formacionRes.data.length > 0 ? formacionRes.data.length + ' grupos' : 'Ninguna';
+      } catch {
+        stats.forEach(s => s.textContent = '—');
+      }
+    });
+  </script>
+</body>
+</html>

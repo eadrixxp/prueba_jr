@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formación — Mundial API</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="../assets/css/animations.css">
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav__brand">
+      <span class="nav__brand-icon">🏆</span>
+      Mundial API
+    </div>
+    <div class="nav__links">
+      <a href="../index.html" class="nav__link">
+        <span class="nav__link-icon">🏠</span>
+        <span>Inicio</span>
+      </a>
+      <a href="equipos.html" class="nav__link">
+        <span class="nav__link-icon">🌍</span>
+        <span>Equipos</span>
+      </a>
+      <a href="grupos.html" class="nav__link">
+        <span class="nav__link-icon">🏷️</span>
+        <span>Grupos</span>
+      </a>
+      <a href="formacion.html" class="nav__link active">
+        <span class="nav__link-icon">🎲</span>
+        <span>Formación</span>
+      </a>
+    </div>
+  </nav>
+
+  <main class="layout">
+
+    <div class="page-header page-enter">
+      <div>
+        <div class="page-header__title">🎲 Formación de Grupos</div>
+        <div class="page-header__subtitle">Genera la distribución aleatoria de equipos en los grupos del torneo</div>
+      </div>
+      <button class="btn btn--outline" id="btn-ver-actual">
+        👁️ Ver formación actual
+      </button>
+    </div>
+
+    <div class="formacion-panel page-enter">
+
+      <div class="card">
+        <div class="card__header">
+          <div class="card__title">🌍 Equipos registrados</div>
+        </div>
+        <div id="equipos-panel" style="max-height:360px;overflow-y:auto">
+          <div class="empty-state">
+            <div class="empty-state__icon">⏳</div>
+            <div class="empty-state__text">Cargando equipos...</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card__header">
+          <div class="card__title">🏷️ Grupos disponibles</div>
+        </div>
+        <div id="grupos-panel" style="max-height:360px;overflow-y:auto">
+          <div class="empty-state">
+            <div class="empty-state__icon">⏳</div>
+            <div class="empty-state__text">Cargando grupos...</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="formacion-config page-enter">
+      <div class="formacion-config__title">⚙️ Configurar formación</div>
+
+      <div class="formacion-generate">
+        <div class="form-group">
+          <label class="form-label" for="field-cantidadGrupos">
+            Cantidad de grupos a formar <span style="color:var(--color-danger)">*</span>
+          </label>
+          <input
+            class="form-control"
+            id="field-cantidadGrupos"
+            type="number"
+            placeholder="Ej: 4"
+            min="2"
+            autocomplete="off"
+            style="max-width:180px"
+          >
+          <div class="form-hint">
+            Mínimo 2 grupos. Los equipos deben ser divisibles entre la cantidad ingresada.
+          </div>
+          <div class="form-error" id="error-cantidadGrupos"></div>
+        </div>
+
+        <button class="btn btn--primary btn--lg" id="btn-generar">
+          🎲 Generar asignación
+        </button>
+      </div>
+
+      <div style="margin-top:20px;padding:14px 16px;background:var(--color-primary-light);border-radius:var(--radius-md);font-size:13px;color:var(--color-primary);border:1px solid rgba(37,99,235,.15)">
+        <strong>ℹ️ Importante:</strong> Al generar la formación, la distribución anterior será reemplazada automáticamente. La asignación es aleatoria usando el algoritmo Fisher-Yates.
+      </div>
+    </div>
+
+    <div id="preview-section" style="display:none">
+      <div class="page-header" style="margin-top:32px;margin-bottom:16px">
+        <div class="page-header__title" style="font-size:18px">👁️ Vista previa de la formación</div>
+      </div>
+      <div id="preview-container"></div>
+
+      <div class="save-bar" id="save-bar" style="display:none">
+        <div class="save-bar__info">
+          Formación lista para usar.
+        </div>
+        <div style="display:flex;gap:10px">
+          <button class="btn btn--outline" id="btn-generar-nuevo" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+            🔄 Regenerar
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <script src="../assets/js/api/client.js"></script>
+  <script src="../assets/js/components/spinner.js"></script>
+  <script src="../assets/js/components/toast.js"></script>
+  <script src="../assets/js/components/modal.js"></script>
+  <script src="../assets/js/components/table.js"></script>
+  <script src="../assets/js/modules/formacion.js"></script>
+  <script src="../assets/js/app.js"></script>
+
+</body>
+</html>
