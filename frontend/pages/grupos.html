@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grupos — Mundial API</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="../assets/css/animations.css">
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav__brand">
+      <span class="nav__brand-icon">🏆</span>
+      Mundial API
+    </div>
+    <div class="nav__links">
+      <a href="../index.html" class="nav__link">
+        <span class="nav__link-icon">🏠</span>
+        <span>Inicio</span>
+      </a>
+      <a href="equipos.html" class="nav__link">
+        <span class="nav__link-icon">🌍</span>
+        <span>Equipos</span>
+      </a>
+      <a href="grupos.html" class="nav__link active">
+        <span class="nav__link-icon">🏷️</span>
+        <span>Grupos</span>
+      </a>
+      <a href="formacion.html" class="nav__link">
+        <span class="nav__link-icon">🎲</span>
+        <span>Formación</span>
+      </a>
+    </div>
+  </nav>
+
+  <main class="layout">
+
+    <div class="page-header">
+      <div>
+        <div class="page-header__title">🏷️ Grupos</div>
+        <div class="page-header__subtitle">
+          <span id="grupos-count">0</span> grupos registrados
+        </div>
+      </div>
+      <button class="btn btn--primary" id="btn-nuevo-grupo">
+        ➕ Nuevo Grupo
+      </button>
+    </div>
+
+    <div class="card page-enter">
+      <div class="card__header">
+        <div class="card__title">📋 Lista de grupos</div>
+      </div>
+      <div id="grupos-table"></div>
+    </div>
+
+  </main>
+
+  <div class="modal-overlay" id="grupo-modal">
+    <div class="modal">
+      <div class="modal__header">
+        <div class="modal__title" id="modal-title">Nuevo Grupo</div>
+        <button class="modal__close" aria-label="Cerrar">✕</button>
+      </div>
+      <div class="modal__body">
+        <form id="grupo-form" novalidate>
+
+          <div class="form-group">
+            <label class="form-label" for="field-nombre">Nombre del grupo <span>*</span></label>
+            <input class="form-control" id="field-nombre" type="text" placeholder="Grupo A" maxlength="10" autocomplete="off">
+            <div class="form-hint">Máximo 10 caracteres (ej: Grupo A)</div>
+            <div class="form-error" id="error-nombre"></div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="field-descripcion">Descripción</label>
+            <input class="form-control" id="field-descripcion" type="text" placeholder="Descripción opcional" autocomplete="off">
+          </div>
+
+        </form>
+      </div>
+      <div class="modal__footer">
+        <button class="btn btn--outline modal__close">Cancelar</button>
+        <button class="btn btn--primary" onclick="document.getElementById('grupo-form').requestSubmit()">
+          Guardar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../assets/js/api/client.js"></script>
+  <script src="../assets/js/components/spinner.js"></script>
+  <script src="../assets/js/components/toast.js"></script>
+  <script src="../assets/js/components/modal.js"></script>
+  <script src="../assets/js/components/table.js"></script>
+  <script src="../assets/js/modules/grupos.js"></script>
+  <script src="../assets/js/app.js"></script>
+
+</body>
+</html>
