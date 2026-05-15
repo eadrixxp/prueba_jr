@@ -11,7 +11,7 @@ const EquiposService = {
   /**
    * Retorna todos los equipos activos.
    */
-  getAll: async () => {
+  getAllEquipos: async () => {
     const result = await EquipoModel.findAll();
     return result.rows;
   },
@@ -20,7 +20,7 @@ const EquiposService = {
    * Retorna un equipo por ID. Lanza 404 si no existe.
    * @param {number} id
    */
-  getById: async (id) => {
+  getEquipoById: async (id) => {
     const result = await EquipoModel.findById(id);
     if (!result.rows.length) {
       throw new AppError(ERROR_MESSAGES.E015, 404, ERROR_CODES.E015);
@@ -32,7 +32,7 @@ const EquiposService = {
    * Crea un nuevo equipo validando unicidad de país y código FIFA.
    * @param {object} data
    */
-  create: async (data) => {
+  createEquipo: async (data) => {
     // Validar unicidad del nombre de país
     const porNombre = await EquipoModel.findByNombre(data.nombrePais);
     if (porNombre.rows.length) {
@@ -54,7 +54,7 @@ const EquiposService = {
    * @param {number} id
    * @param {object} data
    */
-  update: async (id, data) => {
+  updateEquipo: async (id, data) => {
     // Verificar que el equipo existe
     const existe = await EquipoModel.findById(id);
     if (!existe.rows.length) {
@@ -80,7 +80,7 @@ const EquiposService = {
    * Elimina lógicamente un equipo (estado = FALSE).
    * @param {number} id
    */
-  softDelete: async (id) => {
+  deleteEquipo: async (id) => {
     const result = await EquipoModel.softDelete(id);
     if (!result.rows.length) {
       throw new AppError(ERROR_MESSAGES.E015, 404, ERROR_CODES.E015);

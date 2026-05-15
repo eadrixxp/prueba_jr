@@ -6,9 +6,9 @@ const asyncHandler     = require('../utils/asyncHandler');
  * Solo gestiona HTTP: recibe req, llama al service y devuelve res.
  */
 
-const generar = asyncHandler(async (req, res) => {
+const generarFormacion = asyncHandler(async (req, res) => {
   const { cantidadGrupos } = req.body;
-  const formacion = await FormacionService.generar(parseInt(cantidadGrupos, 10));
+  const formacion = await FormacionService.generarFormacion(parseInt(cantidadGrupos, 10));
 
   res.status(200).json({
     status:  'success',
@@ -25,4 +25,4 @@ const getFormacionActual = asyncHandler(async (req, res) => {
   });
 });
 
-module.exports = { generar, getFormacionActual };
+module.exports = { generarFormacion, getFormacionActual };

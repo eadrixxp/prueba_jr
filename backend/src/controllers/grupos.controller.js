@@ -6,8 +6,8 @@ const asyncHandler  = require('../utils/asyncHandler');
  * Solo gestiona HTTP: recibe req, llama al service y devuelve res.
  */
 
-const getAll = asyncHandler(async (req, res) => {
-  const grupos = await GruposService.getAll();
+const getAllGrupos = asyncHandler(async (req, res) => {
+  const grupos = await GruposService.getAllGrupos();
   res.status(200).json({
     status: 'success',
     total:  grupos.length,
@@ -15,13 +15,13 @@ const getAll = asyncHandler(async (req, res) => {
   });
 });
 
-const getById = asyncHandler(async (req, res) => {
-  const grupo = await GruposService.getById(parseInt(req.params.id, 10));
+const getGrupoById = asyncHandler(async (req, res) => {
+  const grupo = await GruposService.getGrupoById(parseInt(req.params.id, 10));
   res.status(200).json({ status: 'success', data: grupo });
 });
 
-const create = asyncHandler(async (req, res) => {
-  const grupo = await GruposService.create(req.body);
+const createGrupo = asyncHandler(async (req, res) => {
+  const grupo = await GruposService.createGrupo(req.body);
   res.status(201).json({
     status:  'success',
     message: 'Grupo creado exitosamente',
@@ -29,8 +29,8 @@ const create = asyncHandler(async (req, res) => {
   });
 });
 
-const update = asyncHandler(async (req, res) => {
-  const grupo = await GruposService.update(parseInt(req.params.id, 10), req.body);
+const updateGrupo = asyncHandler(async (req, res) => {
+  const grupo = await GruposService.updateGrupo(parseInt(req.params.id, 10), req.body);
   res.status(200).json({
     status:  'success',
     message: 'Grupo actualizado exitosamente',
@@ -38,12 +38,12 @@ const update = asyncHandler(async (req, res) => {
   });
 });
 
-const softDelete = asyncHandler(async (req, res) => {
-  await GruposService.softDelete(parseInt(req.params.id, 10));
+const deleteGrupo = asyncHandler(async (req, res) => {
+  await GruposService.deleteGrupo(parseInt(req.params.id, 10));
   res.status(200).json({
     status:  'success',
     message: 'Grupo eliminado exitosamente',
   });
 });
 
-module.exports = { getAll, getById, create, update, softDelete };
+module.exports = { getAllGrupos, getGrupoById, createGrupo, updateGrupo, deleteGrupo };

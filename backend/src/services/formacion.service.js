@@ -24,7 +24,7 @@ const FormacionService = {
    * @param {number} cantidadGrupos
    * @returns {Array} Formación agrupada
    */
-  generar: async (cantidadGrupos) => {
+  generarFormacion: async (cantidadGrupos) => {
     // --- Validación 1: mínimo 2 grupos ---
     if (cantidadGrupos < 2) {
       throw new AppError(ERROR_MESSAGES.E012, 400, ERROR_CODES.E012);

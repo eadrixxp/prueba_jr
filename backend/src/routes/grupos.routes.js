@@ -31,7 +31,7 @@ const { crearGrupoRules, actualizarGrupoRules, idParamRules } = require('../vali
  *                   type: array
  *                   items: { $ref: '#/components/schemas/Grupo' }
  */
-router.get('/', ctrl.getAll);
+router.get('/', ctrl.getAllGrupos);
 
 /**
  * @swagger
@@ -66,7 +66,7 @@ router.get('/', ctrl.getAll);
  *           application/json:
  *             schema: { $ref: '#/components/schemas/ValidationErrorResponse' }
  */
-router.get('/:id', idParamRules, validate, ctrl.getById);
+router.get('/:id', idParamRules, validate, ctrl.getGrupoById);
 
 /**
  * @swagger
@@ -101,7 +101,7 @@ router.get('/:id', idParamRules, validate, ctrl.getById);
  *           application/json:
  *             schema: { $ref: '#/components/schemas/ValidationErrorResponse' }
  */
-router.post('/', crearGrupoRules, validate, ctrl.create);
+router.post('/', crearGrupoRules, validate, ctrl.createGrupo);
 
 /**
  * @swagger
@@ -147,7 +147,7 @@ router.post('/', crearGrupoRules, validate, ctrl.create);
  *           application/json:
  *             schema: { $ref: '#/components/schemas/ValidationErrorResponse' }
  */
-router.put('/:id', actualizarGrupoRules, validate, ctrl.update);
+router.put('/:id', actualizarGrupoRules, validate, ctrl.updateGrupo);
 
 /**
  * @swagger
@@ -177,6 +177,6 @@ router.put('/:id', actualizarGrupoRules, validate, ctrl.update);
  *           application/json:
  *             schema: { $ref: '#/components/schemas/ErrorResponse' }
  */
-router.delete('/:id', idParamRules, validate, ctrl.softDelete);
+router.delete('/:id', idParamRules, validate, ctrl.deleteGrupo);
 
 module.exports = router;

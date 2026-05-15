@@ -11,7 +11,7 @@ const GruposService = {
   /**
    * Retorna todos los grupos activos.
    */
-  getAll: async () => {
+  getAllGrupos: async () => {
     const result = await GrupoModel.findAll();
     return result.rows;
   },
@@ -20,7 +20,7 @@ const GruposService = {
    * Retorna un grupo por ID. Lanza 404 si no existe.
    * @param {number} id
    */
-  getById: async (id) => {
+  getGrupoById: async (id) => {
     const result = await GrupoModel.findById(id);
     if (!result.rows.length) {
       throw new AppError(ERROR_MESSAGES.E007, 404, ERROR_CODES.E007);
@@ -32,7 +32,7 @@ const GruposService = {
    * Crea un nuevo grupo validando unicidad del nombre.
    * @param {object} data
    */
-  create: async (data) => {
+  createGrupo: async (data) => {
     const porNombre = await GrupoModel.findByNombre(data.nombre);
     if (porNombre.rows.length) {
       throw new AppError(ERROR_MESSAGES.E006, 409, ERROR_CODES.E006);
@@ -47,7 +47,7 @@ const GruposService = {
    * @param {number} id
    * @param {object} data
    */
-  update: async (id, data) => {
+  updateGrupo: async (id, data) => {
     const existe = await GrupoModel.findById(id);
     if (!existe.rows.length) {
       throw new AppError(ERROR_MESSAGES.E007, 404, ERROR_CODES.E007);
@@ -66,7 +66,7 @@ const GruposService = {
    * Elimina lógicamente un grupo (estado = FALSE).
    * @param {number} id
    */
-  softDelete: async (id) => {
+  deleteGrupo: async (id) => {
     const result = await GrupoModel.softDelete(id);
     if (!result.rows.length) {
       throw new AppError(ERROR_MESSAGES.E007, 404, ERROR_CODES.E007);

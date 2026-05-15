@@ -90,6 +90,6 @@ router.get('/', ctrl.getFormacionActual);
  *           application/json:
  *             schema: { $ref: '#/components/schemas/ValidationErrorResponse' }
  */
-router.post('/generar', generarFormacionRules, validate, ctrl.generar);
+router.post('/generar', generarFormacionRules, validate, ctrl.generarFormacion);
 
 module.exports = router;

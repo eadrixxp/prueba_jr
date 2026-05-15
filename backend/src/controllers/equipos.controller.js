@@ -6,8 +6,8 @@ const asyncHandler  = require('../utils/asyncHandler');
  * Solo gestiona HTTP: recibe req, llama al service y devuelve res.
  */
 
-const getAll = asyncHandler(async (req, res) => {
-  const equipos = await EquiposService.getAll();
+const getAllEquipos = asyncHandler(async (req, res) => {
+  const equipos = await EquiposService.getAllEquipos();
   res.status(200).json({
     status: 'success',
     total:  equipos.length,
@@ -15,13 +15,13 @@ const getAll = asyncHandler(async (req, res) => {
   });
 });
 
-const getById = asyncHandler(async (req, res) => {
-  const equipo = await EquiposService.getById(parseInt(req.params.id, 10));
+const getEquipoById = asyncHandler(async (req, res) => {
+  const equipo = await EquiposService.getEquipoById(parseInt(req.params.id, 10));
   res.status(200).json({ status: 'success', data: equipo });
 });
 
-const create = asyncHandler(async (req, res) => {
-  const equipo = await EquiposService.create(req.body);
+const createEquipo = asyncHandler(async (req, res) => {
+  const equipo = await EquiposService.createEquipo(req.body);
   res.status(201).json({
     status:  'success',
     message: 'Equipo creado exitosamente',
@@ -29,8 +29,8 @@ const create = asyncHandler(async (req, res) => {
   });
 });
 
-const update = asyncHandler(async (req, res) => {
-  const equipo = await EquiposService.update(parseInt(req.params.id, 10), req.body);
+const updateEquipo = asyncHandler(async (req, res) => {
+  const equipo = await EquiposService.updateEquipo(parseInt(req.params.id, 10), req.body);
   res.status(200).json({
     status:  'success',
     message: 'Equipo actualizado exitosamente',
@@ -38,12 +38,12 @@ const update = asyncHandler(async (req, res) => {
   });
 });
 
-const softDelete = asyncHandler(async (req, res) => {
-  await EquiposService.softDelete(parseInt(req.params.id, 10));
+const deleteEquipo = asyncHandler(async (req, res) => {
+  await EquiposService.deleteEquipo(parseInt(req.params.id, 10));
   res.status(200).json({
     status:  'success',
     message: 'Equipo eliminado exitosamente',
   });
 });
 
-module.exports = { getAll, getById, create, update, softDelete };
+module.exports = { getAllEquipos, getEquipoById, createEquipo, updateEquipo, deleteEquipo };

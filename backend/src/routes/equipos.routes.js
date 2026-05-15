@@ -31,7 +31,7 @@ const { crearEquipoRules, actualizarEquipoRules, idParamRules } = require('../va
  *                   type: array
  *                   items: { $ref: '#/components/schemas/Equipo' }
  */
-router.get('/', ctrl.getAll);
+router.get('/', ctrl.getAllEquipos);
 
 /**
  * @swagger
@@ -66,7 +66,7 @@ router.get('/', ctrl.getAll);
  *           application/json:
  *             schema: { $ref: '#/components/schemas/ValidationErrorResponse' }
  */
-router.get('/:id', idParamRules, validate, ctrl.getById);
+router.get('/:id', idParamRules, validate, ctrl.getEquipoById);
 
 /**
  * @swagger
@@ -101,7 +101,7 @@ router.get('/:id', idParamRules, validate, ctrl.getById);
  *           application/json:
  *             schema: { $ref: '#/components/schemas/ValidationErrorResponse' }
  */
-router.post('/', crearEquipoRules, validate, ctrl.create);
+router.post('/', crearEquipoRules, validate, ctrl.createEquipo);
 
 /**
  * @swagger
@@ -147,7 +147,7 @@ router.post('/', crearEquipoRules, validate, ctrl.create);
  *           application/json:
  *             schema: { $ref: '#/components/schemas/ValidationErrorResponse' }
  */
-router.put('/:id', actualizarEquipoRules, validate, ctrl.update);
+router.put('/:id', actualizarEquipoRules, validate, ctrl.updateEquipo);
 
 /**
  * @swagger
@@ -177,6 +177,6 @@ router.put('/:id', actualizarEquipoRules, validate, ctrl.update);
  *           application/json:
  *             schema: { $ref: '#/components/schemas/ErrorResponse' }
  */
-router.delete('/:id', idParamRules, validate, ctrl.softDelete);
+router.delete('/:id', idParamRules, validate, ctrl.deleteEquipo);
 
 module.exports = router;
