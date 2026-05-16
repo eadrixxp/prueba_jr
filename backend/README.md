@@ -54,30 +54,47 @@ API REST para administrar equipos y grupos del Mundial de Fútbol. Permite el CR
 ## Instalación y configuración
 
 ```bash
-# 1. Clonar o descomprimir el proyecto
-cd prueba
+# 1. Clonar o descomprimir el proyecto y entrar a la carpeta backend
+cd prueba_jr/backend
 
-# 2. Instalar dependencias backend
-cd backend 
-
+# 2. Instalar dependencias
 npm install
 
-# 3. Crear el archivo de variables de entorno
-cp .env
+# 3. Crear el archivo de variables de entorno 
+ .env
 
 # 4. Editar .env con tus credenciales (ver sección Variables de entorno)
+```
 
-# 5. Instalar dependencias y librerias necesarias
-npm install express pg dotenv express-validator swagger-ui-express swagger-jsdoc cors helmet morgan
-npm install --save-dev nodemon
+### Configurar la base de datos
 
-# 6. Ejecutar el script SQL en PostgreSQL para crear tablas, triggers e índices
-psql -U postgres -d db_mundial -f database.sql
+El dump SQL se encuentra en la raíz del proyecto (`dump-db_mundial-202605151102.sql`). Sigue estos pasos para crear e inicializar la base de datos:
 
-# 7. Arrancar en modo desarrollo
+**Opción A — desde la terminal (psql):**
+
+```bash
+# Paso 1: Crear la base de datos
+psql -U postgres -c "CREATE DATABASE db_mundial;"
+
+# Paso 2: Cargar el dump (ejecutar desde la raíz del proyecto)
+psql -U postgres -d db_mundial -f dump-db_mundial-202605151102.sql
+```
+
+> Si tu usuario de PostgreSQL no es `postgres`, reemplázalo en ambos comandos. En Windows puedes necesitar ejecutar la terminal como administrador o usar el PATH completo de psql (ej: `"C:\Program Files\PostgreSQL\16\bin\psql.exe"`).
+
+**Opción B — desde pgAdmin:**
+
+1. Abre pgAdmin y conéctate a tu servidor PostgreSQL.
+2. Clic derecho en **Databases** → **Create** → **Database…** → nombre: `db_mundial` → **Save**.
+3. Clic derecho en `db_mundial` → **Restore…** → selecciona el archivo `dump-db_mundial-202605151102.sql` → **Restore**.
+
+### Arrancar el servidor
+
+```bash
+# Modo desarrollo (recarga automática)
 npm run dev
 
-# Arrancar en producción
+# Modo producción
 npm start
 ```
 
@@ -94,7 +111,7 @@ PORT=3000
 
 DB_HOST=localhost
 DB_PORT=5432
-DB_NAME=mundial_db
+DB_NAME=db_mundial
 DB_USER=postgres
 DB_PASSWORD=tu_password
 ```

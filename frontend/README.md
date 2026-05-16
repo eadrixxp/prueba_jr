@@ -38,48 +38,40 @@ Sin frameworks, sin bundlers, sin dependencias de npm. Funciona directamente en 
 
 ## Requisitos previos
 
-- El backend (Mundial API) corriendo en `http://localhost:3000`
+- El backend (Mundial API) corriendo (por defecto en el puerto `3000`)
 - Un navegador moderno (Chrome, Firefox, Edge, Safari)
-- Opcional: un servidor local para evitar restricciones CORS con `file://`
+- Un servidor local para evitar restricciones CORS al abrir con `file://`
 
 ---
 
 ## Instalación y uso
 
-El frontend no requiere instalación. Solo copia la carpeta y ábrela:
+El frontend no requiere instalación. Solo copia la carpeta y sírvela con un servidor local:
 
 ```
-prueba/
-├── backend/    ← API REST (Node.js)
+prueba_jr/
+├── backend/    ← API REST (Node.js) — puerto 3000
 └── frontend/   ← Este proyecto
 ```
 
-### Opción A — Abrir directamente (más simple)
+**Opción A — Live Server (recomendado si usas VS Code):**
 
-Abre `frontend/index.html` directamente en el navegador. Si el backend tiene CORS habilitado sin restricciones (configuración por defecto), funcionará sin problemas.
+1. Instala la extensión **Live Server** de Ritwick Dey.
+2. Abre la carpeta `frontend/` en VS Code.
+3. Clic derecho en `index.html` → **Open with Live Server**.
 
-### Opción B — Servidor local (recomendado)
+El frontend se abrirá automáticamente en `http://127.0.0.1:5500` (u otro puerto libre).
 
-Evita cualquier restricción de `file://` y simula un entorno real:
+**Opción B — npx serve (terminal):**
 
 ```bash
-# Navegar a la carpeta
-
-cd frontend
-
-# Con Node.js (sin instalar nada extra)
-npx serve .
-
-# Con Python
-python -m http.server 8080 --directory frontend
-
-# Con VS Code
-# Instala la extensión "Live Server" y haz clic en "Go Live"
+# Desde la raíz del proyecto
+npx serve frontend -l 5173
 ```
 
-Luego abre `http://localhost:3000` (o el puerto que indique el servidor).
+Luego abre `http://localhost:5173` en el navegador.
 
-> ⚠️ Asegúrate de que el backend esté corriendo antes de abrir el frontend.
+> El backend ocupa el puerto `3000`, por eso el frontend debe servirse en un puerto distinto. Asegúrate de que el backend esté corriendo antes de abrir el frontend.
 
 ---
 
