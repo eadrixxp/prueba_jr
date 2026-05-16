@@ -54,22 +54,14 @@ prueba_jr/
 └── frontend/   ← Este proyecto
 ```
 
-**Opción A — Live Server (recomendado si usas VS Code):**
-
-1. Instala la extensión **Live Server** de Ritwick Dey.
-2. Abre la carpeta `frontend/` en VS Code.
-3. Clic derecho en `index.html` → **Open with Live Server**.
-
-El frontend se abrirá automáticamente en `http://127.0.0.1:5500` (u otro puerto libre).
-
-**Opción B — npx serve (terminal):**
+** npx serve (terminal):**
 
 ```bash
 # Desde la raíz del proyecto
 npx serve frontend -l 5173
 ```
 
-Luego abre `http://localhost:5173` en el navegador.
+Luego escribir `localhost:5173` en el navegador.
 
 > El backend ocupa el puerto `3000`, por eso el frontend debe servirse en un puerto distinto. Asegúrate de que el backend esté corriendo antes de abrir el frontend.
 
@@ -108,6 +100,7 @@ frontend/
         │   └── formacion.js       # Lógica del módulo de formación
         │
         └── app.js                 # Punto de entrada y detección de página
+        |_ config.js
 ```
 
 ---

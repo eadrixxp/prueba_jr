@@ -7,4 +7,4 @@ const ENV = {
   },
 };
 
-const CONFIG = ENV['production'];
+const CONFIG = ENV['development'];
